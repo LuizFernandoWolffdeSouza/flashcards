@@ -1,8 +1,9 @@
 const prompt = require('prompt-sync')()
-const {baralhos} = require('../data')
+const { baralhos } = require('../data')
 const listar = require('./listarbaralhos')
 const listarflashcard = require('./listarflashcards')
-const atualizarbaralho = require('./atualizarbaralho')
+const atualizar = require('./atualizarbaralho')
+const criar = require('./criarbaralho')
 
 menu()
 function menu(params) {
@@ -22,14 +23,17 @@ function menu(params) {
     let resposta = prompt("Escolha uma opção: ")
     switch (resposta) {
         case "1":
-
-            break;
+            let id = Number(prompt("Digite o nome do id "))
+            let nome = prompt("Digite o nome do baralho: ")
+            criar({  nome})
+            console.log("Baralho cadastrado com sucesso")
+            menu()
         case "2":
 
             break;
         case "3":
             listar()
-           menu()
+            menu()
 
             break;
         case "4":
@@ -41,16 +45,16 @@ function menu(params) {
             break;
         case "6":
             listar()
-            let index = baralhos.find(bar => bar.idBaralho === baralhos.idBaralho)
-            index = prompt("Digite o id do baralho que deseja editar: ")
-            let index2 = prompt("Deseja realmente editar: ")
-            if (index2 == "sim") {
-                let novoBaralho = prompt("Digite o nome do novo baralho")
-                atualizarbaralho({ nome:novoBaralho})
 
-                
+            let index = Number(prompt("Digite o id do baralho que deseja editar: "))
+            let index2 = prompt("Deseja realmente editar: ")
+            if (index2 === "sim") {
+                let novoBaralho = prompt("Digite o nome do novo baralho: ")
+                atualizar(index, novoBaralho)
+
+
             }
-           menu()
+            menu()
             break;
         case "7":
 

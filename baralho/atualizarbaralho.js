@@ -1,8 +1,10 @@
 const{ baralhos} = require ("../data")
 
 function atualizar(id,novobaralho) {
-    let verificar = baralhos.find(bar => bar.idBaralho === id)
-        baralhos[verificar] =  {id,novobaralho}
+   
+    const index = baralhos.findIndex(bar => bar.idBaralho === id)
+    baralhos[index] =  {idBaralho: id,nome: novobaralho};
+      
         
 
         
