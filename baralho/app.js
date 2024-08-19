@@ -1,5 +1,5 @@
 const prompt = require('prompt-sync')()
-const {flashcards} = require('../data')
+const { flashcards } = require('../data')
 const { baralhos } = require('../data')
 const criar = require('./criarbaralho')
 const listar = require('./listarbaralhos')
@@ -10,7 +10,8 @@ const listarflash = require('../flashcard/listarflashcards')
 const atualizarflash = require('../flashcard/atualizarflashcard')
 const deletarflash = require('../flashcard/deletarflashcard')
 const mostrarflash = require('../flashcard/buscarpflash')
-
+const listarflashcardporbaralhoid = require('../flashcard/listarflashcardporbaralho')
+const buscarflashcardporbaralho = require('../flashcard/listarflashcardporbaralho')
 
 menu()
 function menu(params) {
@@ -31,13 +32,13 @@ function menu(params) {
     switch (resposta) {
         case "1":
             let nome1 = prompt("Digite o nome do baralho: ")
-            criar({nome: nome1})
+            criar({ nome: nome1 })
             console.log("Baralho cadastrado com sucesso")
             menu()
         case "2":
-            
+
             let nome2 = prompt("Digite o nome da pergunta do flashcard: ").toLowerCase()
-            criarflash({ pergunta:nome2})
+            criarflash({ pergunta: nome2 })
             console.log("Flashcard cadastrado com sucesso")
             menu()
 
@@ -52,6 +53,7 @@ function menu(params) {
             menu()
             break;
         case "5":
+            listarflashcardporbaralhoid()
 
             break;
         case "6":
@@ -65,7 +67,7 @@ function menu(params) {
 
 
             }
-            else if(index2 === "não"){
+            else if (index2 === "não") {
                 console.log("Nada editado")
             }
             menu()
@@ -76,12 +78,12 @@ function menu(params) {
             let index3 = prompt("Deseja realmente editar: ").toLowerCase()
             if (index3 === "sim") {
                 let novoflashcard = prompt("Digite o nome da pergunta do novo flashcard: ")
-                atualizarflash(verifica ,novoflashcard )
+                atualizarflash(verifica, novoflashcard)
                 console.log("Pergunta cadastrada com sucesso")
 
 
             }
-            else if(index3 === "não"){
+            else if (index3 === "não") {
                 console.log("Nada editado")
             }
             menu()
@@ -94,7 +96,7 @@ function menu(params) {
                 console.log("Baralho excluido com sucesso")
 
             }
-           menu()
+            menu()
 
             break;
         case "9":
@@ -106,12 +108,20 @@ function menu(params) {
                 console.log("Flashcard excluido com sucesso")
 
             }
-             menu()
+            menu()
             break;
         case "10":
-            let verificar = Number(prompt("Digite o número da pergunta: "))
-            mostrarflash({verificar})
-          menu()
+            listarflash()
+            let verificar = prompt("Digite  a pergunta: ").toLowerCase()
+            let resultado = mostrarflash(verificar)
+            console.log(resultado)
+            menu()
+            break;
+        case "11":
+            let verificarbaralho =parseInt( prompt("Digite um baralho para digitar o flashcard:  "))
+            let resultadobaralho = buscarflashcardporbaralho(verificarbaralho)
+            console.log(resultadobaralho)
+            menu()
             break;
 
 
